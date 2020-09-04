@@ -7,7 +7,9 @@ package it.polito.tdp.artsmia;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import it.polito.tdp.artsmia.model.ArtObject;
 import it.polito.tdp.artsmia.model.Model;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -47,11 +49,31 @@ public class FXMLController {
     
     @FXML
     void doAnalizzaOggetti(ActionEvent event) {
+    	
+    	txtResult.clear();
+    	model.creaGrafo();
+    	txtResult.appendText("Grafo creato!\n");;
+    	txtResult.appendText("# Vertici: " + model.vertexNumber() + "\n");
+    	txtResult.appendText("# Archi: " + model.edgeNumber() + "\n");
 
     }
 
     @FXML
     void doCalcolaComponenteConnessa(ActionEvent event) {
+    	txtResult.clear();
+    	int c;
+    	try {
+    		c=Integer.parseInt(txtObjectId.getText());
+    	} catch (Throwable t){
+    		txtResult.appendText("Errore nell'input!");
+    		return;
+    		
+    	}
+    	
+    	for(ArtObject a : model.dammiConnesse(c)) {
+    		txtResult.appendText(a.toString() + "\n");
+    	}
+    
 
     }
 
